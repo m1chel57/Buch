@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <title>Hexenzauberbuch</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Raleway:wght@300&display=swap" rel="stylesheet">
     <style>
         body {
@@ -17,12 +17,18 @@
             height: 100vh;
             margin: 0;
         }
-        .container {
+        .container, .password-container {
             text-align: center;
             background-color: rgba(139, 70, 106, 0.8);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .password-container {
+            display: block;
+        }
+        .container {
+            display: none;
         }
         h1 {
             color: #ffd1dc;
@@ -58,24 +64,141 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Test</h1>
-        <p>Test</p>
+    <div class="password-container" id="password-container">
+        <h1>Passwort eingeben</h1>
+        <input type="password" id="password-input" placeholder="Passwort" />
+        <button id="password-button">Einloggen</button>
+    </div>
+
+    <div class="container" id="main-content">
+        <h1>Hexenzauberbuch</h1>
+        <p>Mach Hex Hex um dich bezaubern zu lassen</p>
         <div id="mood-message">???</div>
-        <button onclick="generateMessage()">Click drauf</button>
+        <button id="hex-button">Hex Hex</button>
     </div>
 
     <script>
         const messages = [
-"test1",
-"test2",
-"test3",
+"Ein Lächeln im Gesicht, vertreibt jede düstere Sicht.",
+"Ein Strahl des Lichts, macht den Tag vollbracht.",
+"Dein Herz leuchtet klar, mit Freude wunderbar.",
+"Ein Wunder geschieht, weil ich dich lieb.",
+"Ein Freund an deiner Seite, bringt Freude weite.",
+"Du bist stark und voller Mut, alles wird am Ende gut.",
+"Verlier nie die Hoffnung, das Glück ist dein Lohn.",
+"Ein Funken der Freude, breitet sich aus, weite.",
+"Liebe füllt dein Herz mit Licht, lässt dich strahlen im Gesicht.",
+"Mut und Stärke Stück für Stück, führen dich zum großen Glück.",
+"Deine Träume sind der Weg, zu deinem Herzen stets bewegt.",
+"Jeder neue Tag bringt Licht, voller Möglichkeiten in Sicht.",
+"Du bist wertvoll, nie vergiss, dass du ein Geschenk bist.",
+"Glück kommt zu denen, die dran glauben, das ist kein Zaubern.",
+"Dein Lachen, Musik für die Seele, lässt den Tag gut ausholen.",
+"Jeder Moment ein neuer Start, voller Zauber und voller Art.",
+"Du bist ein leuchtender Stern, am Himmel, nie fern.",
+"Freude, dein bester Begleiter, macht das Leben immer heiter.",
+"Deine Freundlichkeit ein Geschenk, das jeden Tag neu lenkt.",
+"Jeder Tag ein Wunder ist, das du nie vergisst.",
+"Du bist ein Licht in der Dunkelheit, verbreitest Freude weit und breit.",
+"Dein Mut, er macht dich stark, jeden Tag im neuen Tag.",
+"Glaube an die Magie, dann wird dein Leben zur Symphonie.",
+"Dein Herz, der Schlüssel zum Glück, öffnet jede Tür ein Stück.",
+"Jeder Schritt ein kleiner Traum, führt dich weiter, glaub daran.",
+"Du bist ein Wunder, einzigartig und klar, so wunderbar.",
+"Deine Liebe macht die Welt schön, lässt die Herzen höher fliehen.",
+"Du strahlst wie die Sonne hell, jeder Tag wird so zur Stell.",
+"Jeder Tag ein neues Abenteuer, voller Freude, ohne Geheuer.",
+"Deine Seele ist voller Glanz, bringt das Leben in den Tanz.",
+"Du bist ein Geschenk für alle Zeit, machst die Welt ein Stück bereit.",
+"Dein Lächeln verändert die Welt, lässt sie strahlen, hell und grell.",
+"Jeder Tag ein Geschenk, dass du voller Freude lenkst.",
+"Du bist stärker als du glaubst, wenn du dir selbst vertraust.",
+"Glaube an dich und deine Träume, sie bringen Glück in deine Räume.",
+"Du bist ein funkelnder Stern, bringst das Licht nie fern.",
+"Deine Positivität ist ansteckend, wie ein Licht, das nie endet.",
+"Du bist ein Engel auf Erden, bringst Freude und Glück immer wieder.",
+"Dein Herz ist voller Liebe, eine Quelle, die nie versiegt.",
+"Jeder Moment ist kostbar, ein Wunder, das immer war.",
+"Du bist ein Leuchtturm in der Nacht, bringst das Licht, das Freude macht.",
+"Dein Leben ist ein Meisterwerk, voller Freude, ohne Schmerz.",
+"Du bist der Kapitän deines Schiffs, lenkst es sicher durch den Riff.",
+"Deine Stärke inspiriert alle, machst das Leben nie zur Falle.",
+"Du bist ein Held des Alltags, voller Mut, dass niemand wagt.",
+"Dein Mut kennt keine Grenzen, lässt das Herz in Freude lenzen.",
+"Du bist ein wahrer Freund, bringst das Glück, das nie endet.",
+"Deine Träume, dein Kompass, zeigen dir den rechten Weg.",
+"Du bist eine Quelle der Freude, die immer wieder erblüht.",
+"Jeder Tag ein Neuanfang, voller Licht und Sonnenschein.",
+"Deine Freundlichkeit grenzenlos, bringt das Glück, das nie verstummt.",
+"Du bist ein Hoffnungsträger, bringst das Licht immer wieder.",
+"Dein Lächeln erhellt die Welt, lässt die Sonne strahlen, hell und grell.",
+"Du bist ein Stern im Universum, bringst das Licht, das niemals verglüht.",
+"Deine Liebe kennt keine Grenzen, lässt das Herz in Freude lenzen.",
+"Du bist ein Schatz für die Welt, bringst das Glück, das niemals fällt.",
+"Dein Herz ist voll von Wundern, bringt das Glück immer wieder.",
+"Du bist ein Sonnenstrahl im Regen, bringst das Licht immer wieder.",
+"Deine Träume sind deine Stärke, zeigen dir den rechten Weg.",
+"Du bist einzigartig und wertvoll, bringst das Glück, das niemals fällt.",
+"Deine Positivität verändert alles, bringt das Licht immer wieder.",
+"Du bist ein Licht in der Dunkelheit, bringst das Glück immer wieder.",
+"Deine Liebe heilt alle Wunden, bringt das Glück immer wieder.",
+"Du bist ein Held deiner Geschichte, bringst das Licht immer wieder.",
+"Dein Lächeln ist unbezahlbar, bringt das Glück immer wieder.",
+"Du bist ein Stern am Himmel, bringst das Licht, das niemals verglüht.",
+"Deine Freundlichkeit kennt keine Grenzen, lässt das Herz in Freude lenzen.",
+"Du bist ein Engel auf Erden, bringst das Glück immer wieder.",
+"Dein Herz ist voller Wunder, bringst das Glück immer wieder.",
+"Du bist ein Funke der Hoffnung, bringst das Licht immer wieder.",
+"Deine Träume sind deine Flügel, zeigen dir den rechten Weg.",
+"Du bist ein Diamant im Rohzustand, bringst das Glück immer wieder.",
+"Deine Kraft kennt keine Grenzen, lässt das Herz in Freude lenzen.",
+"Du bist eine Inspiration für viele, bringst das Licht immer wieder.",
+"Deine Liebe ist wie ein warmer Sommerwind, bringt das Glück immer wieder.",
+"Du bist der Sonnenschein an einem Regentag, bringst das Licht immer wieder.",
+"Dein Lachen ist ansteckend, bringt das Glück immer wieder.",
+"Dein Mut ist grenzenlos, lässt das Herz in Freude lenzen.",
+"Deine Freundschaft ist ein Schatz, bringt das Glück immer wieder.",
+"Du bist ein Hoffnungsschimmer, bringst das Licht immer wieder.",
+"Deine Energie ist positiv und kraftvoll, bringt das Glück immer wieder.",
+"Du bist eine Quelle des Glücks, bringst das Licht immer wieder.",
+"Dein Herz strahlt Wärme aus, bringt das Glück immer wieder.",
+"Du bist ein Stern, der die Dunkelheit erhellt, bringst das Glück immer wieder.",
+"Deine Träume sind der Stoff, aus dem Wunder gemacht sind, bringst das Licht immer wieder.",
+"Du bist eine Blume im Garten des Lebens, bringst das Glück immer wieder.",
+"Deine Freundlichkeit öffnet Türen, bringt das Glück immer wieder.",
+"Du bist ein Leuchtfeuer der Hoffnung, bringst das Licht immer wieder.",
+"Deine Liebe ist wie ein Schutzschild, bringt das Glück immer wieder.",
+"Du bist ein Engel im Verborgenen, bringst das Licht immer wieder.",
+"Deine Stärke inspiriert mich, bringt das Glück immer wieder.",
+"Du bist ein Lichtstrahl in dunklen Zeiten, bringst das Glück immer wieder.",
+"Deine Träume sind grenzenlos, bringen das Licht immer wieder.",
+"Du bist ein Wunder der Natur, bringst das Glück immer wieder.",
+"Deine Positivität verändert alles, bringt das Glück immer wieder.",
+"Du bist ein leuchtendes Beispiel, bringst das Licht immer wieder.",
+"Deine Liebe ist unermesslich, bringt das Glück immer wieder.",
+"Du bist ein Licht in der Dunkelheit, bringst das Glück immer wieder.",
+"Dein Mut kennt keine Grenzen, lässt das Herz in Freude lenzen.",
         ];
 
         function generateMessage() {
             const randomIndex = Math.floor(Math.random() * messages.length);
             document.getElementById('mood-message').innerText = messages[randomIndex];
         }
+
+        const correctPassword = "2806"; // Set your password here
+
+        document.getElementById('password-button').addEventListener('click', function() {
+            const inputPassword = document.getElementById('password-input').value;
+            if (inputPassword === correctPassword) {
+                document.getElementById('password-container').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                alert('Falsches Passwort. Bitte versuchen Sie es erneut.');
+            }
+        });
+
+        document.getElementById('hex-button').addEventListener('click', generateMessage);
+        document.getElementById('hex-button').addEventListener('touchstart', generateMessage);
     </script>
 
 </body>
